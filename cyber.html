@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QUANTUM • First Prize Winner</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Orbitron', monospace;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: 0.1s;
+            box-shadow: 0 0 20px #00ff88;
+        }
+        
+        /* Animated Background */
+        .bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, #120a8f 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, #ff006e 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, #8338ec 0%, transparent 50%);
+            animation: bgMove 10s infinite linear;
+            z-index: -2;
+        }
+        
+        @keyframes bgMove {
+            0% { transform: rotate(0deg) scale(1); }
+            100% { transform: rotate(360deg) scale(1.1); }
+        }
+        
+        /* Matrix Rain Effect */
+        .matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,255,136,0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0,255,136,0.3);
+            border-radius: 50px;
+            padding: 15px 40px;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0,255,136,0.2);
+        }
+        
+        nav a {
+            color: #00ff88;
+            text-decoration: none;
+            margin: 0 25px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 2px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #00ff88;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00ff88, #ff006e);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            z-index: 10;
+        }
+        
+        .hero h1 {
+            font-size: 6rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00ff88, #ff006e, #8338ec, #00ff88);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease-in-out infinite;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            position: relative;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .hero h1::before {
+            content: 'QUANTUM';
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: linear-gradient(45deg, #00ff88, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glitch 2s infinite;
+        }
+        
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translateX(0); }
+            10% { transform: translateX(-2px) translateY(2px); }
+            20% { transform: translateX(2px) translateY(-2px); }
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            opacity: 0.8;
+            letter-spacing: 3px;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 0.8;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Holographic Button */
+        .holo-btn {
+            display: inline-block;
+            padding: 18px 45px;
+            background: linear-gradient(45deg, transparent, rgba(0,255,136,0.1), transparent);
+            border: 2px solid #00ff88;
+            border-radius: 50px;
+            color: #00ff88;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            letter-spacing: 2px;
+            position: relative;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            overflow: hidden;
+        }
+        
+        .holo-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .holo-btn:hover::before {
+            left: 100%;
+        }
+        
+        .holo-btn:hover {
+            color: #fff;
+            box-shadow: 0 0 30px #00ff88, inset 0 0 30px rgba(0,255,136,0.2);
+            transform: translateY(-3px);
+        }
+        
+        /* Floating Elements */
+        .float-element {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: floatUp 8s linear infinite;
+            box-shadow: 0 0 10px #00ff88;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(90vh) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(10vh) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(0) scale(0);
+            }
+        }
+        
+        /* Glass Cards */
+        .section {
+            padding: 100px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .glass-card {
+            background: rgba(0,255,136,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,255,136,0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0,255,136,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+        
+        .glass-card:hover::before {
+            animation: shine 0.5s ease-in-out;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,255,136,0.3);
+            border-color: rgba(0,255,136,0.5);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(45deg, #00ff88, #8338ec);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+        
+        .cyber-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+            text-align: center;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+        
+        footer {
+            background: rgba(0,0,0,0.8);
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(0,255,136,0.3);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; letter-spacing: 4px; }
+            nav a { margin: 0 15px; font-size: 12px; }
+            .section { padding: 60px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="bg"></div>
+    
+    <canvas class="matrix"></canvas>
+    
+    <nav>
+        <a href="#home">HOME</a>
+        <a href="#about">ABOUT</a>
+        <a href="#services">SERVICES</a>
+        <a href="#contact">CONTACT</a>
+    </nav>
+    
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>QUANTUM</h1>
+            <p>THE FUTURE IS NOW</p>
+            <a href="#about" class="holo-btn">ENTER THE MATRIX</a>
+        </div>
+    </section>
+    
+    <section class="section" id="about">
+        <div class="glass-card">
+            <h2>NEXT GENERATION</h2>
+            <p style="font-size: 1.2rem; line-height: 1.8; text-align: center; color: rgba(255,255,255,0.8);">
+                We are the architects of tomorrow, crafting digital experiences that transcend reality. 
+                Our quantum-powered solutions redefine what's possible in the digital realm.
+            </p>
+        </div>
+    </section>
+    
+    <section class="section" id="services">
+        <h2>QUANTUM SERVICES</h2>
+        <div class="grid">
+            <div class="glass-card">
+                <div class="cyber-icon">⚡</div>
+                <h3 style="color: #00ff88; margin-bottom: 15px; font-size: 1.4rem;">LIGHTNING SPEED</h3>
+                <p style="color: rgba(255,255,255,0.7);">Quantum-accelerated performance that breaks the speed of light</p>
+            </div>
+            <div class="glass-card">
+                <div class="cyber-icon">🔮</div>
+                <h3 style="color: #ff006e; margin-bottom: 15px; font-size: 1.4rem;">AI POWERED</h3>
+                <p style="color: rgba(255,255,255,0.7);">Neural networks that think beyond human imagination</p>
+            </div>
+            <div class="glass-card">
+                <div class="cyber-icon">🚀</div>
+                <h3 style="color: #8338ec; margin-bottom: 15px; font-size: 1.4rem;">SPACE READY</h3>
+                <p style="color: rgba(255,255,255,0.7);">Technology designed for interplanetary deployment</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="glass-card">
+            <h2>JOIN THE REVOLUTION</h2>
+            <p style="margin-bottom: 30px; font-size: 1.1rem;">Ready to transcend digital boundaries?</p>
+            <a href="#" class="holo-btn">QUANTUM LEAP</a>
+        </div>
+    </footer>
+    
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+        });
+        
+        // Matrix Rain Effect
+        const canvas = document.querySelector('.matrix');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const chars = '01';
+        const charArray = chars.split('');
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+        
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00ff88';
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 35);
+        
+        // Floating Elements
+        function createFloatingElement() {
+            const element = document.createElement('div');
+            element.className = 'float-element';
+            element.style.left = Math.random() * 100 + '%';
+            element.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(element);
+            
+            setTimeout(() => element.remove(), 8000);
+        }
+        
+        setInterval(createFloatingElement, 300);
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Glitch Effect on Load
+        window.addEventListener('load', () => {
+            const title = document.querySelector('.hero h1');
+            title.style.animation = 'glitch 0.3s ease-in-out 3';
+        });
+        
+        // Interactive Elements
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Resize Canvas
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
